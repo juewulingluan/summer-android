@@ -732,8 +732,14 @@ public class MainActivity extends BaseActivity implements View.OnLongClickListen
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (MainActivity.this.islogin) more.setVisibility(View.VISIBLE);
-                else more.setVisibility(View.INVISIBLE);
+                if (MainActivity.this.islogin) {
+                    more.setVisibility(View.VISIBLE);
+                    JPushInterface.setAlias(getApplicationContext(), PermissionUtils.IMEI, tac);//极光推送设置别名
+                } else {
+                    more.setVisibility(View.INVISIBLE);
+                    JPushInterface.setAlias(getApplicationContext(), "", tac);//极光推送设置别名
+                }
+
             }
         });
     }
