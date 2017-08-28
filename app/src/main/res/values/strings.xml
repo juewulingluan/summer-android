@@ -77,4 +77,11 @@
     <string name="call_voice_resume">语音传输已恢复</string>
     <string name="call_voice_calling">语音通话进行中</string>
     <string name="vm_name">VMTools</string>
+
+    <string name="button_save_text">保存</string>
+    <string name="button_ok_text">确定</string>
+    <string name="button_cancel_text">取消</string>
+    <string name="button_delete_text">删除</string>
+    <string name="num_modify">修改数量</string>
+    <string name="button_keyboard_text">键盘</string>
 </resources>
