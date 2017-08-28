@@ -47,15 +47,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import cn.cerc.summer.android.basis.core.WebConfig;
+import cn.cerc.summer.android.basis.core.Constans;
 import cn.cerc.summer.android.basis.core.MainPopupMenu;
 import cn.cerc.summer.android.basis.core.MyApp;
 import cn.cerc.summer.android.basis.core.MyBroadcastReceiver;
-import cn.cerc.summer.android.basis.core.Constans;
 import cn.cerc.summer.android.basis.core.PermissionUtils;
 import cn.cerc.summer.android.basis.core.ScreenUtils;
-import cn.cerc.summer.android.basis.view.DragPointView;
+import cn.cerc.summer.android.basis.core.WebConfig;
 import cn.cerc.summer.android.basis.view.BrowserView;
+import cn.cerc.summer.android.basis.view.DragPointView;
 import cn.cerc.summer.android.basis.view.ShowDialog;
 import cn.cerc.summer.android.basis.view.ShowPopupWindow;
 import cn.cerc.summer.android.parts.music.FrmCaptureMusic;
@@ -95,7 +95,11 @@ public class FrmMain extends AppCompatActivity implements View.OnLongClickListen
     private List<MainPopupMenu> menuList;
     private ListPopupWindow popupWindow;//列表弹框
 
-    public BrowserView getBrowser(){return browser;};
+    public BrowserView getBrowser() {
+        return browser;
+    }
+
+    ;
 
     /**
      * 推送消息的消息id， 点击通知栏打开
@@ -420,6 +424,7 @@ public class FrmMain extends AppCompatActivity implements View.OnLongClickListen
                                 browser.loadUrl(logoutUrl);
                                 browser.clearCache(true);
                                 browser.clearHistory();
+                                browser.reload();
                             }
                         } else
                             browser.reload();

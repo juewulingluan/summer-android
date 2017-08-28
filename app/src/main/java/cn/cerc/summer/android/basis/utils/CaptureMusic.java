@@ -18,16 +18,23 @@ public class CaptureMusic implements JavaScriptService {
 
     @Override
     public String execute(Context context, String dataIn) {
-        try {
+//        try {
+//            JSONObject json = new JSONObject(dataIn);
+//            String reqName = json.getString("reqName");
+//            String url = "http://192.168.1.178/forms/" + json.getString("uploadUrl");
+//            Log.e("CaptureMusic", url);
+//            FrmCaptureMusic.startForm(context, url);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+        try{
             JSONObject json = new JSONObject(dataIn);
-            String reqName = json.getString("reqName");
-            String url = "http://192.168.1.178/forms/" + json.getString("uploadUrl");
-            Log.e("CaptureMusic", url);
+            String url = json.getString("uploadUrl");
+            Log.e("CaptureMusic", "url: " + url);
             FrmCaptureMusic.startForm(context, url);
         } catch (JSONException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
-
         return "true";
     }
 }

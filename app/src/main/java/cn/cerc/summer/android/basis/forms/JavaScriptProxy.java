@@ -12,7 +12,9 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import cn.cerc.summer.android.basis.core.MyApp;
 import cn.cerc.summer.android.basis.utils.CallLoginByAccount;
@@ -45,7 +47,7 @@ import cn.cerc.summer.android.basis.utils.VideoByAudio;
  * Created by fff on 2016/11/11.
  */
 public class JavaScriptProxy extends Object {
-    private static Map<Class, String> services = new HashMap<>();
+    private static Map<Class, String> services = new LinkedHashMap<>();
 
     static {
         services.put(CallPhoneNumber.class, "拔打指定的电话号码");
@@ -183,7 +185,7 @@ public class JavaScriptProxy extends Object {
     //列出所有可用的服务
     @JavascriptInterface
     public String list(){
-        Map<String, String> items = new HashMap<>();
+        Map<String, String> items = new LinkedHashMap<>();
         JSONObject json = new JSONObject();
         for(Class clazz : services.keySet()){
             String args[] = clazz.getName().split("\\.");
