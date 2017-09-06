@@ -7,7 +7,6 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,20 +29,26 @@ public class GetClientGPS implements JavaScriptService {
         criteria.setCostAllowed(true);//允许有花费
         criteria.setPowerRequirement(Criteria.POWER_LOW);//低功耗
 
+        JSONObject json = new JSONObject();
+        String result = "false";
+        String message = "定位失败！";
         //从可用的位置提供器中，匹配以上标准的最佳提供器
         String locationProvider = locationManager.getBestProvider(criteria, true);
         if (ActivityCompat.checkSelfPermission(context.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context.getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(context, "没有权限", Toast.LENGTH_SHORT).show();
-            return "定位失败";
+            message = "没有权限，定位失败！";
         }
         Location location = locationManager.getLastKnownLocation(locationProvider);
         if (location != null) {
             //不为空,显示地理位置经纬度
-            JSONObject json = new JSONObject();
-            json.put("lon", location.getLongitude());
-            json.put("lat", location.getLatitude());
-            return json.toString();
+            result = "true";
+            message = "定位成功！";
+            JSONObject loc = new JSONObject();
+            loc.put("lon", location.getLongitude());
+            loc.put("lat", location.getLatitude());
+            json.put("location", loc);
         }
-        return "定位失败";
+        json.put("result", result);
+        json.put("message", message);
+        return json.toString();
     }
 }
