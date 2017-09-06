@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.cerc.summer.android.basis.forms.JavaScriptService;
@@ -20,7 +21,7 @@ import cn.cerc.summer.android.basis.forms.JavaScriptService;
 public class GetClientGPS implements JavaScriptService {
 
     @Override
-    public String execute(Context context, JSONObject request) {
+    public String execute(Context context, JSONObject request) throws JSONException {
         LocationManager locationManager = (LocationManager) context.getSystemService(context.getApplicationContext().LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_COARSE);//低精度，如果设置为高精度，依然获取不了location。
@@ -38,7 +39,10 @@ public class GetClientGPS implements JavaScriptService {
         Location location = locationManager.getLastKnownLocation(locationProvider);
         if (location != null) {
             //不为空,显示地理位置经纬度
-            return "定位成功------->"+"location------>经度为：" + location.getLatitude() + "\n纬度为" + location.getLongitude();
+            JSONObject json = new JSONObject();
+            json.put("lon", location.getLongitude());
+            json.put("lat", location.getLatitude());
+            return json.toString();
         }
         return "定位失败";
     }
